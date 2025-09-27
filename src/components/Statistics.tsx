@@ -47,11 +47,51 @@ const Statistics = () => {
     },
   ];
 
+  const teamsByLeague = {
+    laliga: [
+      "Real Madrid", "FC Barcelona", "Atlético Madrid", "Athletic Bilbao", "Real Sociedad",
+      "Villarreal", "Real Betis", "Valencia", "Sevilla", "Osasuna",
+      "Getafe", "Girona", "Las Palmas", "Alavés", "Rayo Vallecano",
+      "Celta Vigo", "Mallorca", "Espanyol", "Valladolid", "Leganés"
+    ],
+    bundesliga: [
+      "Bayern Munich", "Borussia Dortmund", "RB Leipzig", "Bayer Leverkusen", "Union Berlin",
+      "SC Freiburg", "FC Köln", "Eintracht Frankfurt", "VfL Wolfsburg", "Borussia Mönchengladbach",
+      "FSV Mainz 05", "FC Augsburg", "VfB Stuttgart", "TSG Hoffenheim", "Werder Bremen",
+      "VfL Bochum", "FC Schalke 04", "Hertha BSC"
+    ],
+    ligue1: [
+      "Paris Saint-Germain", "AS Monaco", "Olympique Marseille", "Stade Rennais", "OGC Nice",
+      "RC Lens", "Lille OSC", "Olympique Lyonnais", "RC Strasbourg", "Nantes",
+      "Montpellier HSC", "Stade Brestois", "Le Havre AC", "Clermont Foot", "FC Metz",
+      "Toulouse FC", "Reims", "AJ Auxerre", "AS Saint-Étienne", "Angers SCO"
+    ],
+    premier: [
+      "Manchester City", "Arsenal", "Liverpool", "Chelsea", "Newcastle United",
+      "Manchester United", "Tottenham", "Brighton", "Aston Villa", "West Ham",
+      "Crystal Palace", "Bournemouth", "Fulham", "Wolves", "Everton",
+      "Brentford", "Nottingham Forest", "Luton Town", "Burnley", "Sheffield United"
+    ],
+    seriea: [
+      "Inter Milan", "AC Milan", "Juventus", "Atalanta", "AS Roma",
+      "Lazio", "Napoli", "Fiorentina", "Bologna", "Torino",
+      "Monza", "Genoa", "Lecce", "Udinese", "Frosinone",
+      "Hellas Verona", "Cagliari", "Empoli", "Sassuolo", "Salernitana"
+    ]
+  };
+
   const handleLeagueSelect = (league: typeof leagues[0]) => {
     setSelectedLeague(league.id);
     toast({
       title: "Liga seleccionada",
-      description: `Estadísticas de ${league.name} próximamente disponibles`,
+      description: `Equipos de ${league.name} cargados`,
+    });
+  };
+
+  const handleTeamStats = (teamName: string) => {
+    toast({
+      title: "Estadísticas del equipo",
+      description: `Estadísticas de ${teamName} próximamente disponibles`,
     });
   };
 
@@ -122,29 +162,32 @@ const Statistics = () => {
           </CardContent>
         </Card>
 
-        {/* Placeholder for statistics content */}
+        {/* Teams Section */}
         {selectedLeague && (
           <Card className="border-border">
             <CardHeader>
-              <CardTitle>Estadísticas de {leagues.find(l => l.id === selectedLeague)?.name}</CardTitle>
+              <CardTitle>Equipos de {leagues.find(l => l.id === selectedLeague)?.name}</CardTitle>
               <CardDescription>
-                Próximamente: estadísticas detalladas, tablas de posiciones, y análisis de rendimiento
+                Selecciona un equipo para ver sus estadísticas detalladas
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-4 rounded-lg bg-muted">
-                  <h3 className="font-semibold mb-2">Tabla de Posiciones</h3>
-                  <p className="text-sm text-muted-foreground">Clasificación actual de equipos</p>
-                </div>
-                <div className="p-4 rounded-lg bg-muted">
-                  <h3 className="font-semibold mb-2">Estadísticas de Goles</h3>
-                  <p className="text-sm text-muted-foreground">Promedios y tendencias de goles</p>
-                </div>
-                <div className="p-4 rounded-lg bg-muted">
-                  <h3 className="font-semibold mb-2">Rendimiento por Equipo</h3>
-                  <p className="text-sm text-muted-foreground">Análisis individual de equipos</p>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {teamsByLeague[selectedLeague as keyof typeof teamsByLeague]?.map((team) => (
+                  <Card key={team} className="border-border hover:border-muted transition-smooth">
+                    <CardContent className="p-4">
+                      <h3 className="font-semibold text-center mb-3 text-sm">{team}</h3>
+                      <Button 
+                        variant="betting" 
+                        size="sm" 
+                        className="w-full"
+                        onClick={() => handleTeamStats(team)}
+                      >
+                        Conocer estadísticas
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
             </CardContent>
           </Card>
