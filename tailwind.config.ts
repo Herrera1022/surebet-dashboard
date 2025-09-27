@@ -47,6 +47,13 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        betting: {
+          green: "hsl(var(--betting-green))",
+          gold: "hsl(var(--betting-gold))",
+          navy: "hsl(var(--betting-navy))",
+          dark: "hsl(var(--betting-dark))",
+          card: "hsl(var(--betting-card))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
