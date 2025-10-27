@@ -198,17 +198,6 @@ const SurebetCalculator = () => {
           </Card>
         )}
 
-        <Card>
-          <CardHeader>
-            <CardTitle>¿Cómo funciona?</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2 text-sm text-muted-foreground">
-            <p>1. <strong>Probabilidades implícitas:</strong> Cada cuota se convierte a probabilidad (P = 1/Cuota)</p>
-            <p>2. <strong>Verificación:</strong> Se suma todas las probabilidades. Si la suma es menor a 1, hay surebet</p>
-            <p>3. <strong>Distribución:</strong> Se calcula cuánto apostar en cada resultado para garantizar ganancia</p>
-            <p>4. <strong>Ganancia:</strong> Sin importar el resultado, obtienes el mismo retorno garantizado</p>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
