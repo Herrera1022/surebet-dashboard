@@ -9,7 +9,6 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const SurebetCalculator = () => {
   const navigate = useNavigate();
-  const [numOutcomes, setNumOutcomes] = useState(2);
   const [odds, setOdds] = useState<number[]>([0, 0]);
   const [totalAmount, setTotalAmount] = useState<number>(0);
   const [results, setResults] = useState<any>(null);
@@ -20,11 +19,6 @@ const SurebetCalculator = () => {
     setOdds(newOdds);
   };
 
-  const handleNumOutcomesChange = (value: number) => {
-    setNumOutcomes(value);
-    setOdds(Array(value).fill(0));
-    setResults(null);
-  };
 
   const calculateSurebet = () => {
     // Paso 1: Convertir cuotas a probabilidades implícitas
@@ -42,8 +36,8 @@ const SurebetCalculator = () => {
       return;
     }
 
-    // Paso 3: Calcular las cantidades a apostar
-    const stakes = probabilities.map(p => (totalAmount * p) / S);
+    // Paso 3: Calcular las cantidades a apostar (redondeadas a enteros)
+    const stakes = probabilities.map(p => Math.round((totalAmount * p) / S));
     
     // Paso 4: Calcular ganancia garantizada
     const returns = stakes.map((stake, i) => odds[i] * stake);
@@ -89,31 +83,13 @@ const SurebetCalculator = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="space-y-2">
-              <Label>Número de resultados posibles</Label>
-              <div className="flex gap-2">
-                <Button
-                  variant={numOutcomes === 2 ? "default" : "outline"}
-                  onClick={() => handleNumOutcomesChange(2)}
-                >
-                  2 (Tenis)
-                </Button>
-                <Button
-                  variant={numOutcomes === 3 ? "default" : "outline"}
-                  onClick={() => handleNumOutcomesChange(3)}
-                >
-                  3 (Fútbol)
-                </Button>
-              </div>
-            </div>
 
             <div className="space-y-4">
               <Label>Cuotas (Odds)</Label>
               {odds.map((odd, index) => (
                 <div key={index} className="space-y-2">
                   <Label className="text-sm text-muted-foreground">
-                    Resultado {index + 1} {numOutcomes === 3 && (index === 0 ? "(Local)" : index === 1 ? "(Empate)" : "(Visitante)")}
-                    {numOutcomes === 2 && (index === 0 ? "(Opción A)" : "(Opción B)")}
+                    Resultado {index + 1} {index === 0 ? "(Opción A)" : "(Opción B)"}
                   </Label>
                   <Input
                     type="number"
@@ -181,7 +157,7 @@ const SurebetCalculator = () => {
                           Resultado {index + 1} (Cuota: {odds[index]})
                         </span>
                         <span className="font-bold text-lg">
-                          ${stake.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} COP
+                          ${Math.round(stake).toLocaleString('es-CO')} COP
                         </span>
                       </div>
                     ))}
