@@ -36,7 +36,7 @@ const Dashboard = () => {
       title: "Calculadora de Surebet",
       description: "Calcula distribución óptima de apuestas",
       icon: Calculator,
-      onClick: () => toast({ title: "Próximamente", description: "Función en desarrollo" }),
+      onClick: () => navigate("/surebet-calculator"),
       variant: "betting" as const,
     },
   ];

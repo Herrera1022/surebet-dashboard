@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Statistics from "./components/Statistics";
+import SurebetCalculator from "./components/SurebetCalculator";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./pages/NotFound";
 
@@ -32,6 +33,14 @@ const App = () => (
             element={
               <ProtectedRoute>
                 <Statistics />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/surebet-calculator" 
+            element={
+              <ProtectedRoute>
+                <SurebetCalculator />
               </ProtectedRoute>
             } 
           />
